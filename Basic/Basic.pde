@@ -10,11 +10,14 @@ void setup(){
   background(225);
   balls = new ArrayList<Ball>();
   balls.add(new Ball(barLoc+width/16-5, height-15, 15, -5, -7));
-  bricks = levs.getLevel(1);
-  bricks.add(new Brick(9*width/20, 19*height/40, 2));
+  bricks = levs.getLevel(levelAt++);
 }
 
 void draw(){
+  if(bricks.size() == 0 && levs.howManyLevels < levelAt){
+   bricks = levs.getLevel(levelAt++); 
+  }
+  println(levelAt);
  fill(100);
  background(190, 230, 255);
   for(int i = 0; i < balls.size(); i++){
