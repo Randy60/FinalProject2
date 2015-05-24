@@ -84,7 +84,7 @@ void draw(){
   }
   }
   if(levelUp){
-    fill(20, 220);
+   fill(20, 220);
    rect(width/8, height/8, 3*width/4, 3*height/4, height/32);
    textSize(width/20);
    fill(225);

@@ -14,6 +14,18 @@ public class Levels{
      temp.add(new Brick(width/3-width/20, height/2-height/40, 1));
      temp.add(new Brick(2*width/3-width/20, height/2-height/40, 1));
     }
+    if(i == 3){
+     temp.add(new Brick (0, height / 3, 1)); 
+     temp.add(new Brick (width / 10, height / 3, 1)); 
+     temp.add(new Brick (2* width / 10, height / 3, 1));
+     temp.add(new Brick (3* width / 10, height / 3, 1));
+     temp.add(new Brick (4* width / 10, height / 3, 1));
+     temp.add(new Brick (5* width / 10, height / 3, 1));
+     temp.add(new Brick (6* width / 10, height / 3, 1));
+     temp.add(new Brick (7* width / 10, height / 3, 1)); 
+     temp.add(new Brick (8* width / 10, height / 3, 1));
+     temp.add(new Brick (9* width / 10, height / 3, 1));
+    }
     return temp;
   }  
 }
