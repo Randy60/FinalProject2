@@ -1,5 +1,6 @@
 public class Ball{
-  public int x, y, size, xdir, ydir;
+  public float x, y, xdir, ydir;
+  public int size;
   public boolean killMe = false;
   public Ball(int a, int b, int s, int xd, int yd){
    x = a;
@@ -11,14 +12,17 @@ public class Ball{
   public int size(){
     return size;
   }
-  public int getX(){
+  public float getX(){
     return x;
   }
-  public int getY(){
+  public float getY(){
     return y;
   }
+  void unpause(){
+   isInPlay = true; 
+  }
   void pause(){
-   isInPlay=!isInPlay; 
+   isInPlay=false; 
   }
   boolean isInPlay = true;
   public void move(int barAt, ArrayList<Brick> bricks){
@@ -31,7 +35,7 @@ public class Ball{
         }
         if(y+size >= height){
           if(x > barAt && x < barAt+width/8){
-            xdir = (x-(barAt+width/16))/5+(int)(4*(Math.random()-0.50));
+            xdir = (float)((x-(barAt+width/16))/5);
             ydir = 0-Math.abs(ydir);
            }else{
              if(y >= height){

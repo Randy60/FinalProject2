@@ -1,5 +1,5 @@
 public class Levels{
-  public int howManyLevels = 1;
+  public int howManyLevels = 3;
   public ArrayList<Brick> getLevel(int i){
     ArrayList<Brick> temp = new ArrayList<Brick>();
     if(i == 1){
@@ -9,10 +9,10 @@ public class Levels{
     temp.add(new Brick(11*width/20, 18*height/40, 1));
     }
     if(i == 2){
-     temp.add(new Brick(width/3, height/3, 1));
-     temp.add(new Brick(2*width/3, height/3, 1));
-     temp.add(new Brick(width/3, 2*height/3, 1));
-     temp.add(new Brick(2*width/3, 2*height/3, 1));
+     temp.add(new Brick(width/3-width/20, height/3-height/40, 1));
+     temp.add(new Brick(2*width/3-width/20, height/3-height/40, 1));
+     temp.add(new Brick(width/3-width/20, height/2-height/40, 1));
+     temp.add(new Brick(2*width/3-width/20, height/2-height/40, 1));
     }
     return temp;
   }  
