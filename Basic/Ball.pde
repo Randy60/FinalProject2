@@ -24,9 +24,22 @@ public class Ball{
   void pause(){
    isInPlay=false; 
   }
+  int howManySub0 = 0;
   boolean isInPlay = true;
   public void move(int barAt, ArrayList<Brick> bricks){
     if(isInPlay){
+        if(x < size || x > width-size){
+          howManySub0++;
+        }else{
+          howManySub0 = 0;
+        }
+        if(howManySub0 > 5){
+         xdir = Math.abs(xdir);
+        if(x > width-size){
+         xdir*=-1;
+        } 
+        x+=2*xdir;
+        }
         if(x <= 0 || x >= width){
           xdir*=-1;
         }

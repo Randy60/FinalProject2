@@ -55,9 +55,6 @@ void draw(){
    text("GAME PAUSED", width/4, height/4);
   }else{
  background(190, 230, 255, 5);
- fill(0);
- textSize(10);
- text("lives: "+lives+"\n"+"Press 'P' to pause"+"\n"+"move with left and right arrow", 0, 15);
  fill(120);
   for(int i = 0; i < balls.size(); i++){
     Ball thisun = balls.get(i);
@@ -127,6 +124,9 @@ void draw(){
      bricks = levs.getLevel(levelAt++);
    }
   }
+ fill(0);
+ textSize(10);
+ text("lives: "+lives+"\n"+"Press 'P' to pause"+"\n"+"move with left and right arrow", 0, 15);
 }
 void keyPressed(){
   if(key == CODED){
