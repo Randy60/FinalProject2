@@ -74,7 +74,7 @@ void draw(){
   }
   for(int i = 0; i < bricks.size(); i++){
    Brick it = bricks.get(i);
-   if(it.level == 0){
+   if(it.level <= 0){
      bricks.remove(i);
      i--;
    }else{
@@ -117,13 +117,22 @@ void draw(){
    rect(width/8, height/8, 3*width/4, height/4, height/32);
    textSize(width/15);
    fill(255);
-   text("YOU LOST!", width/3+12, height/4-20);
+   if(lives > 1){
+   text("YOU LOST", width/3+12, height/4-20);
+   }else{
+    text("GAME OVER", width/3+4, height/4-20);
+   }
    textSize(width/30);
    text("press space to try again", width/4+55, height/4+10);
    if(spacePressed){
      balls.add(new Ball(1, 1, 1, 1, 1));
-     lives--;
+     if(lives > 1){
      levelAt--;
+     lives--;
+     }else{
+       levelAt = 1;
+       lives = 9;
+     }
      levelUp = true;
      for(int i = 0; i < bricks.size(); i++){
       bricks.remove(bricks.size()-1); 
@@ -160,5 +169,10 @@ void keyReleased(){
     if(keyCode == LEFT){
        moveLeft = false;
     }
+ }
+ if(keyCode == 32){
+   if(!levelUp){
+  spacePressed = false;
+   } 
  }
 }

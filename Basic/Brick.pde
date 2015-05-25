@@ -1,7 +1,6 @@
 public class Brick{
   public int xcor, ycor, xsize, ysize, level;
   boolean isSteel;
-  boolean justBounced;
   public Brick(int x, int y, boolean n){
     xcor = x;
     ycor = y;
