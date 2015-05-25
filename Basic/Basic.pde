@@ -17,9 +17,16 @@ void setup(){
   balls.add(new Ball(barLoc+width/16-5, height-15, 15, -5, -7));
   bricks = levs.getLevel(levelAt++);
 }
-
+boolean noBricks(){
+  for(int i = 0; i < bricks.size(); i++){
+   if(!bricks.get(i).isSteel){
+    return false;
+  }
+  }
+  return true;
+}
 void draw(){
-  if(bricks.size() == 0 && levs.howManyLevels >= levelAt){
+  if(noBricks() && levs.howManyLevels >= levelAt){
    bricks = levs.getLevel(levelAt++);
   levelUp = true; 
   }

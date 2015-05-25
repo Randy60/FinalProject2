@@ -62,19 +62,26 @@ public class Ball{
           }
           for(int i = 0; i < bricks.size(); i++){
             Brick it = bricks.get(i);
+            if(it.justBounced){
+             it.justBounced = false;
+            }else{
             if(y > it.ycor && y < it.ycor+it.ysize){
-             if((x < it.xcor-size+width/16 && x > it.xcor-size)||
-             (x > it.xcor+it.xsize+size-width/16 && x < it.xcor+it.xsize+size)){
+             if((x < it.xcor-size+width/16 && x > it.xcor-size && xdir > 0)||
+             (x > it.xcor+it.xsize+size-width/16 && x < it.xcor+it.xsize+size && xdir < 0)){
                xdir*=-1;
                it.dropLevel();
+               it.justBounced = true;
              }
             }
             if(x > it.xcor && x < it.xcor+it.xsize){
-             if((y < it.ycor && y > it.ycor-size)||
-             (y > it.ycor+it.ysize && y < it.ycor+it.ysize+size)){
+             if((y < it.ycor && y > it.ycor-size && ydir > 0)||
+             (y > it.ycor+it.ysize && y < it.ycor+it.ysize+size && ydir < 0)){
                ydir*=-1;
                it.dropLevel();
+               it.justBounced = true;
              }
+            }
+          
             }
           }
           x+=xdir;
