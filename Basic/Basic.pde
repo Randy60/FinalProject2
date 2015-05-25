@@ -109,7 +109,7 @@ void draw(){
    rect(width/8, height/8, 3*width/4, height/4, height/32);
    textSize(width/20);
    fill(255);
-    text("press space to continue", width/4-20, height/4); 
+    text("press space to continue", width/4-25, height/4); 
    }
   }
   if(balls.size() == 0){
