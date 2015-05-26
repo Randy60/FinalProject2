@@ -38,6 +38,7 @@ void draw(){
          } 
         }
         balls.set(0, new Ball(width/2, height-25, 15, r.nextInt(14)-7, -7));
+        balls.get(0).xdir+=.01;
    for(int i = 0; i < balls.size(); i++){
     balls.get(i).pause();
    }
