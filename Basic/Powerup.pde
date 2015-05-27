@@ -43,17 +43,17 @@ public class Powerup{
     if(type == 0){
       fill(160, 160, 160);
     }else if(type == 1){
-      fill(160, 160, 160);
+      fill(0, 0, 0);
     }else if(type == 2){
       fill(255, 0, 0);
     }else if(type == 3){
       fill(0, 0, 255);
     }else if(type == 4){
-      fill(160, 160, 160);
+      fill(255, 128, 0);
     }else if(type == 5){
       fill(0, 255, 0);
     }else{
-      fill(160, 160, 160);
+      fill(255, 0, 255);
     }
     ypos += FALLING_SPEED;
     rect(xpos, ypos, width \ 16, height \ 10, 5);
