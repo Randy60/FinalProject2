@@ -70,8 +70,8 @@ void draw(){
       balls.remove(i);
       i--;
     }
-    ellipse(thisun.getX(), thisun.getY(), thisun.size(), thisun.size());
     thisun.move(barLoc, bricks);
+    ellipse(thisun.getX(), thisun.getY(), thisun.size(), thisun.size());
   }
   for(int i = 0; i < bricks.size(); i++){
    Brick it = bricks.get(i);
