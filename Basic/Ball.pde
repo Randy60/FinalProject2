@@ -24,9 +24,22 @@ public class Ball{
   void pause(){
    isInPlay=false; 
   }
+  int howManySub0 = 0;
   boolean isInPlay = true;
   public void move(int barAt, ArrayList<Brick> bricks){
     if(isInPlay){
+        if(x < size || x > width-size){
+          howManySub0++;
+        }else{
+          howManySub0 = 0;
+        }
+        if(howManySub0 > 5){
+         xdir = Math.abs(xdir);
+        if(x > width-size){
+         xdir*=-1;
+        } 
+        x+=2*xdir;
+        }
         if(x <= 0 || x >= width){
           xdir*=-1;
         }
@@ -49,16 +62,17 @@ public class Ball{
           }
           for(int i = 0; i < bricks.size(); i++){
             Brick it = bricks.get(i);
+           
             if(y > it.ycor && y < it.ycor+it.ysize){
-             if((x < it.xcor-size+width/16 && x > it.xcor-size)||
-             (x > it.xcor+it.xsize+size-width/16 && x < it.xcor+it.xsize+size)){
+             if((x < it.xcor-size+width/16 && x > it.xcor-size && xdir > 0)||
+             (x > it.xcor+it.xsize+size-width/16 && x < it.xcor+it.xsize+size && xdir < 0)){
                xdir*=-1;
                it.dropLevel();
              }
             }
             if(x > it.xcor && x < it.xcor+it.xsize){
-             if((y < it.ycor && y > it.ycor-size)||
-             (y > it.ycor+it.ysize && y < it.ycor+it.ysize+size)){
+             if((y < it.ycor && y > it.ycor-size && ydir > 0)||
+             (y > it.ycor+it.ysize && y < it.ycor+it.ysize+size && ydir < 0)){
                ydir*=-1;
                it.dropLevel();
              }
