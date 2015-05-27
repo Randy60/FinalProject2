@@ -46,6 +46,7 @@ public class Ball{
         if(y <= 0){
            ydir*=-1;
         }
+        if(y > 750){
         if(y+size >= height){
           if(x > barAt && x < barAt+width/8){
             xdir = (float)((x-(barAt+width/16))/5);
@@ -60,6 +61,7 @@ public class Ball{
              }
            }
           }
+        }else{
           for(int i = 0; i < bricks.size(); i++){
             Brick it = bricks.get(i);
            
@@ -78,6 +80,7 @@ public class Ball{
              }
             }
           }
+        }
           x+=xdir;
           y+=ydir;
         }
