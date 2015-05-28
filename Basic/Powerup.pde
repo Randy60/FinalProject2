@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class Powerup{
-  public final int FALLING_SPEED = 10;
-  public int xpos, ypos;
+  public final int FALLING_SPEED = 5;
+  public final int XPOS_LEFT, XPOS_RIGHT, XPOS_MID;
+  public int yposTOP, yposMID, yposBOT;
   public int type;
-  public boolean caught;
   public Random r = new Random();
   
   /**
@@ -19,34 +19,31 @@ public class Powerup{
   
   public Powerup(){
       type = -1;
-      caught = true;
   }
   public Powerup(int t){
       type = t;
-      caught = false;
   }
   public Powerup(int startX, int startY){
      type = r.nextInt(7);
-     caught = false;
-     xpos = startX;
-     ypos = startY;
-  }
-  
-  public void switchCaught(){
-   caught = !caught;
+     XPOS_MID = startX;
+     XPOS_LEFT = startX - 7;
+     XPOS_RIGHT = startX + 7;
+     yposMID = startY;
+     yposTOP = startY - 7;
+     yposBOT = startY + 7;
   }
   
   public boolean checkGot(int platformXPos, int platformYPos){
+    if(ypos > 750){
     if (xpos <= platformXPos + width/16 && xpos >= platformXPos - width/16
         && ypos >= platformYPos - height/10 && ypos <= platformYPos + height/10){
-          switchCaught();
           return true;
         }
+    }
     return false;
   }
   
   public void fall(){
-    if (!caught){
       System.out.println("lml");
     if(type == 0){
       fill(160, 160, 160);
@@ -64,7 +61,6 @@ public class Powerup{
       fill(255, 0, 255);
     }
     ypos += FALLING_SPEED;
-    rect(xpos, ypos, width / 16, height / 10, 5);
-  }
+    triangle(xpos, ypos, width / 16, height / 10, 5);
   }
 }

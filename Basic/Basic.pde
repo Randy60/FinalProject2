@@ -8,7 +8,7 @@ boolean moveLeft, moveRight;
 int barLoc = 400;
 int timer = 239;
 int lives = 9;
-Powerup powerup = new Powerup();
+ArrayList<Powerup> powerups = new ArrayList<Powerup>();
 Random r = new Random();
 
 void setup(){
@@ -81,8 +81,8 @@ void draw(){
      bricks.remove(i);
      i--;
      //making powerups
-     if(powerup.caught){ //&& r.nextInt(2) == 0){
-         Powerup powerup = new Powerup(it.xcor, it.ycor);
+     if(true){ //r.nextInt(2) == 0){
+         powerups.add(new Powerup(it.xcor, it.ycor));
      }
    }else{
    if(it.isSteel){
@@ -94,10 +94,14 @@ void draw(){
   }
   }
   //powerup methods
-  powerup.fall();
-  if(powerup.checkGot(barLoc, height - 20)){
+  for(int i = 0; i < powerups.size(); i ++){
+      powerups.get(i).fall();
+       if(powerups.get(i).checkGot(barLoc, height - 20)){
     //big if block that does stuff
-    powerup = new Powerup();
+    powerups.remove(i);
+  }else if(powerups.get(i).ypos > height){
+   powerups.remove(i); 
+  }
   }
   fill(100);
   fill(0, 200, 80);
