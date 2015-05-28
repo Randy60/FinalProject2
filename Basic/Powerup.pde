@@ -16,13 +16,8 @@ public class Powerup{
   5 = extra life
   6 = catch
   **/
-  
-  public Powerup(){
-      type = -1;
-  }
-  public Powerup(int t){
-      type = t;
-  }
+
+//text for different types
   public Powerup(int startX, int startY){
      type = r.nextInt(7);
      XPOS_MID = startX;
@@ -32,11 +27,11 @@ public class Powerup{
      yposTOP = startY - 7;
      yposBOT = startY + 7;
   }
-  
+  //fix catch distance
   public boolean checkGot(int platformXPos, int platformYPos){
-    if(ypos > 750){
-    if (xpos <= platformXPos + width/16 && xpos >= platformXPos - width/16
-        && ypos >= platformYPos - height/10 && ypos <= platformYPos + height/10){
+    if(yposMID > 750){
+    if (XPOS_LEFT <= platformXPos + width/16 + 14 && XPOS_RIGHT >= platformXPos - width/16 - 14
+        && yposBOT >= platformYPos - height/10 - 14 && yposTOP <= platformYPos + height/10 + 14){
           return true;
         }
     }
@@ -44,7 +39,6 @@ public class Powerup{
   }
   
   public void fall(){
-      System.out.println("lml");
     if(type == 0){
       fill(160, 160, 160);
     }else if(type == 1){
@@ -60,7 +54,10 @@ public class Powerup{
     }else{
       fill(255, 0, 255);
     }
-    ypos += FALLING_SPEED;
-    triangle(xpos, ypos, width / 16, height / 10, 5);
+    yposTOP += FALLING_SPEED;
+    yposMID += FALLING_SPEED;
+    yposBOT += FALLING_SPEED;
+    triangle(XPOS_LEFT, yposMID, XPOS_MID, yposTOP, XPOS_RIGHT, yposMID);
+    triangle(XPOS_LEFT, yposMID, XPOS_MID, yposBOT, XPOS_RIGHT, yposMID);
   }
 }

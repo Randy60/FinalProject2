@@ -99,7 +99,7 @@ void draw(){
        if(powerups.get(i).checkGot(barLoc, height - 20)){
     //big if block that does stuff
     powerups.remove(i);
-  }else if(powerups.get(i).ypos > height){
+  }else if(powerups.get(i).yposTOP > height){
    powerups.remove(i); 
   }
   }
