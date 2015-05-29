@@ -114,6 +114,7 @@ void draw(){
   }
   }
   if(levelUp){
+   powerups = new ArrayList<Powerup>();
    fill(20, 220);
    if(spacePressed){
    rect(width/8, height/8, 3*width/4, 3*height/4, height/32);
@@ -143,6 +144,7 @@ void draw(){
    text("press space to try again", width/4+55, height/4+10);
    if(spacePressed){
      balls.add(new Ball(1, 1, 1, 1, 1));
+     powerups = new ArrayList<Powerup>();
      if(lives > 1){
      levelAt--;
      lives--;
