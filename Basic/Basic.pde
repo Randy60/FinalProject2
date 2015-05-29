@@ -99,11 +99,14 @@ void draw(){
       powerups.get(i).fall();
        if(powerups.get(i).checkGot(barLoc, height - 20)){
           if(powerups.get(i).type == 0){
-            balls.add(new Ball(barLoc+width/16-10, height-15, 15, -5, -7));
-            balls.add(new Ball(barLoc+width/16-5, height-15, 15, -5, -7));
-            balls.add(new Ball(barLoc+width/16, height-15, 15, -5, -7));
-            balls.add(new Ball(barLoc+width/16+5, height-15, 15, -5, -7));
-            balls.add(new Ball(barLoc+width/16+10, height-15, 15, -5, -7));
+            balls.add(new Ball((int)balls.get(0).getX()-10, (int)balls.get(0).getY()-15, 15, r.nextInt(10) - 5, r.nextInt(30) - 15));
+            balls.add(new Ball((int)balls.get(0).getX()-5, (int)balls.get(0).getY()-15, 15, r.nextInt(30) - 15, r.nextInt(10) - 5));
+            balls.add(new Ball((int)balls.get(0).getX(), (int)balls.get(0).getY()-15, 15, r.nextInt(20) - 10, r.nextInt(20) - 10));
+            balls.add(new Ball((int)balls.get(0).getX()+5, (int)balls.get(0).getY()-15, 15, r.nextInt(15) - 7, r.nextInt(25) - 12));
+            balls.add(new Ball((int)balls.get(0).getX()+10, (int)balls.get(0).getY()-15, 15, r.nextInt(25) - 12, r.nextInt(15) - 7));
+            for(int j = 1; j < balls.size(); j++){
+             balls.get(j).ydir+=1; 
+            }
           }else if(powerups.get(i).type == 1){
             //gravity
           }else if(powerups.get(i).type == 2){
@@ -154,6 +157,7 @@ void draw(){
    rect(width/8, height/8, 3*width/4, height/4, height/32);
    textSize(width/15);
    fill(255);
+        powerups = new ArrayList<Powerup>();
    if(lives > 1){
    text("YOU LOST", width/3+12, height/4-20);
    }else{
@@ -163,7 +167,6 @@ void draw(){
    text("press space to try again", width/4+55, height/4+10);
    if(spacePressed){
      balls.add(new Ball(1, 1, 1, 1, 1));
-     powerups = new ArrayList<Powerup>();
      if(lives > 1){
      levelAt--;
      lives--;
