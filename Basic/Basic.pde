@@ -10,6 +10,7 @@ int timer = 239;
 int lives = 9;
 ArrayList<Powerup> powerups = new ArrayList<Powerup>();
 Random r = new Random();
+// for wide powerup: int barWidth = width/8;
 
 void setup(){
   size(800, 800);
@@ -97,7 +98,25 @@ void draw(){
   for(int i = 0; i < powerups.size(); i ++){
       powerups.get(i).fall();
        if(powerups.get(i).checkGot(barLoc, height - 20)){
-    //big if block that does stuff
+          if(powerups.get(i).type == 0){
+            balls.add(new Ball(barLoc+width/16-10, height-15, 15, -5, -7));
+            balls.add(new Ball(barLoc+width/16-5, height-15, 15, -5, -7));
+            balls.add(new Ball(barLoc+width/16, height-15, 15, -5, -7));
+            balls.add(new Ball(barLoc+width/16+5, height-15, 15, -5, -7));
+            balls.add(new Ball(barLoc+width/16+10, height-15, 15, -5, -7));
+          }else if(powerups.get(i).type == 1){
+            //gravity
+          }else if(powerups.get(i).type == 2){
+              //lasers
+          }else if(powerups.get(i).type == 3){
+                //cannons
+          }else if(powerups.get(i).type == 4){
+         // for wide:  barWidth = width/4;      
+          }else if(powerups.get(i).type == 5){
+            lives++;  
+          }else{
+            //catch
+          }
     powerups.remove(i);
   }else if(powerups.get(i).yposTOP > height){
    powerups.remove(i); 
