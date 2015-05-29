@@ -2,6 +2,7 @@ public class Ball{
   public float x, y, xdir, ydir;
   public int size;
   public boolean killMe = false;
+  public boolean gravity = false;
   public Ball(int a, int b, int s, int xd, int yd){
    x = a;
    y = b;
@@ -24,10 +25,20 @@ public class Ball{
   void pause(){
    isInPlay=false; 
   }
+  int gcount = 600;
+  
   int howManySub0 = 0;
   boolean isInPlay = true;
   public void move(int barAt, ArrayList<Brick> bricks){
     if(isInPlay){
+        if(gravity){
+         ydir+=.5;
+          gcount--;
+         if(gcount == 0){
+          gravity = false;
+          gcount = 600;
+         } 
+        }
         if(x < size || x > width-size){
           howManySub0++;
         }else{

@@ -108,7 +108,9 @@ void draw(){
              balls.get(j).ydir+=1; 
             }
           }else if(powerups.get(i).type == 1){
-            //gravity
+            for(int j = 0; j < balls.size(); j ++){
+              balls.get(j).gravity = true;
+            }
           }else if(powerups.get(i).type == 2){
               //lasers
           }else if(powerups.get(i).type == 3){

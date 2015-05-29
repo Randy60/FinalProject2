@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Powerup{
-  public final int FALLING_SPEED = 5;
+  public final int FALLING_SPEED = 2;
   public final int XPOS_LEFT, XPOS_RIGHT, XPOS_MID;
   public int yposTOP, yposMID, yposBOT;
   public int type;
@@ -31,7 +31,7 @@ public class Powerup{
   public boolean checkGot(int platformXPos, int platformYPos){
     if(yposMID > 750){
     if (XPOS_LEFT <= platformXPos + width/16 + 14 && XPOS_RIGHT >= platformXPos - width/16 - 14
-        && yposBOT >= platformYPos - height/10 - 14 && yposTOP <= platformYPos + height/10 + 14){
+        && yposBOT >= platformYPos - height/10 && yposTOP <= platformYPos + height/10 + 14){
           return true;
         }
     }
