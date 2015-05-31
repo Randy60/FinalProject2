@@ -2,7 +2,7 @@ import java.util.*;
 ArrayList<Ball> balls;
 ArrayList<Brick> bricks;
 Levels levs = new Levels();
-boolean paused, levelUp, spacePressed;
+boolean paused, levelUp, spacePressed, JPressed;
 int levelAt = 1;
 boolean moveLeft, moveRight;
 int barLoc = 400;
@@ -83,7 +83,8 @@ void draw(){
      i--;
      //making powerups
      if(true){ //r.nextInt(2) == 0){
-         powerups.add(new Powerup(it.xcor, it.ycor));
+         powerups.add(new Powerup(it.xcor, it.ycor, 6));
+         //powerups.add(new Powerup(it.xcor, it.ycor));
      }
    }else{
    if(it.isSteel){
@@ -99,11 +100,11 @@ void draw(){
       powerups.get(i).fall();
        if(powerups.get(i).checkGot(barLoc, height - 20)){
           if(powerups.get(i).type == 0){
-            balls.add(new Ball((int)balls.get(0).getX()-10, (int)balls.get(0).getY()-15, 15, r.nextInt(10) - 5, r.nextInt(30) - 15));
-            balls.add(new Ball((int)balls.get(0).getX()-5, (int)balls.get(0).getY()-15, 15, r.nextInt(30) - 15, r.nextInt(10) - 5));
-            balls.add(new Ball((int)balls.get(0).getX(), (int)balls.get(0).getY()-15, 15, r.nextInt(20) - 10, r.nextInt(20) - 10));
-            balls.add(new Ball((int)balls.get(0).getX()+5, (int)balls.get(0).getY()-15, 15, r.nextInt(15) - 7, r.nextInt(25) - 12));
-            balls.add(new Ball((int)balls.get(0).getX()+10, (int)balls.get(0).getY()-15, 15, r.nextInt(25) - 12, r.nextInt(15) - 7));
+            balls.add(new Ball((int)balls.get(0).getX()-10, (int)balls.get(0).getY()-15, 15, r.nextInt(10) - 5, (r.nextInt(3) - 1) * 7));
+            balls.add(new Ball((int)balls.get(0).getX()-5, (int)balls.get(0).getY()-15, 15, r.nextInt(30) - 15, (r.nextInt(3) - 1) * 7));
+            balls.add(new Ball((int)balls.get(0).getX(), (int)balls.get(0).getY()-15, 15, r.nextInt(20) - 10, (r.nextInt(3) - 1) * 7));
+            balls.add(new Ball((int)balls.get(0).getX()+5, (int)balls.get(0).getY()-15, 15, r.nextInt(15) - 7, (r.nextInt(3) - 1) * 7));
+            balls.add(new Ball((int)balls.get(0).getX()+10, (int)balls.get(0).getY()-15, 15, r.nextInt(25) - 12, (r.nextInt(3) - 1) * 7));
             for(int j = 1; j < balls.size(); j++){
              balls.get(j).ydir+=1; 
             }
@@ -114,27 +115,45 @@ void draw(){
           }else if(powerups.get(i).type == 2){
               //lasers
           }else if(powerups.get(i).type == 3){
-                //cannons
+              //cannons
           }else if(powerups.get(i).type == 4){
-         // for wide:  barWidth = width/4;      
+              // for wide:  barWidth = width/4;      
           }else if(powerups.get(i).type == 5){
             lives++;  
           }else{
-            //catch
+              for(int k = 0; k < balls.size(); k++){
+                balls.get(k).catchable = true;
+              }
           }
-    powerups.remove(i);
-  }else if(powerups.get(i).yposTOP > height){
+        powerups.remove(i);
+       }else if(powerups.get(i).yposTOP > height){
    powerups.remove(i); 
   }
+  }
+  //catch method
+  if(JPressed){
+    for(int i = 0; i < balls.size(); i++){
+      balls.get(i).released = true;
+    }
   }
   fill(100);
   fill(0, 200, 80);
   rect(barLoc, height-20, width/8, height/5, 5);
   if(moveRight && barLoc+width/8 <= width && !levelUp){
      barLoc+=12;
+     for(int i = 0; i < balls.size(); i++){
+      if(!(balls.get(i).released) && balls.get(i).catchable && balls.get(i).ydir == 0){
+         balls.get(i).x += 12; 
+      }
+     }
   }
   if(moveLeft && barLoc >= 0 && !levelUp){
     barLoc-=12;
+         for(int i = 0; i < balls.size(); i++){
+      if(!(balls.get(i).released) && balls.get(i).catchable && balls.get(i).ydir == 0){
+         balls.get(i).x -= 12; 
+      }
+     }
   }
   }
   if(levelUp){
@@ -185,7 +204,7 @@ void draw(){
   }
  fill(0);
  textSize(10);
- text("lives: "+lives+"\n"+"Press 'P' to pause"+"\n"+"move with left and right arrow", 0, 15);
+ text("lives: "+lives+"\n"+"Press 'P' to pause"+"\n"+"Press 'J' to release balls"+"\n"+"move with left and right arrow", 0, 15);
 }
 void keyPressed(){
   if(key == CODED){
@@ -202,7 +221,10 @@ void keyPressed(){
   }
   if(keyCode == 32){
        spacePressed = true; 
-   }  
+   }
+  if(keyCode == 74){
+    JPressed = true;
+  }  
 }
 void keyReleased(){
  if(key == CODED){
@@ -218,4 +240,7 @@ void keyReleased(){
   spacePressed = false;
    } 
  }
+   if(keyCode == 74){
+    JPressed = false;
+  }  
 }

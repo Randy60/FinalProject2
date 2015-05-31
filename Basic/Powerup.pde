@@ -27,6 +27,16 @@ public class Powerup{
      yposTOP = startY - 7;
      yposBOT = startY + 7;
   }
+  //for testing
+  public Powerup(int startX, int startY, int t){
+     type = t;
+     XPOS_MID = startX;
+     XPOS_LEFT = startX - 7;
+     XPOS_RIGHT = startX + 7;
+     yposMID = startY;
+     yposTOP = startY - 7;
+     yposBOT = startY + 7;
+  }
   //fix catch distance
   public boolean checkGot(int platformXPos, int platformYPos){
     if(yposMID > 750){
