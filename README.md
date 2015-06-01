@@ -1,4 +1,5 @@
 This is the final project that Nino and I will be doing. Our first step however: work on branches.
+<<<<<<< HEAD
 We are The Breakers of Bricks, The Crushers of Cinderblocks, The Anihilators of All Generic Stackable Solids
 
 2015.5.22: Randy made a woking engine for bouncing balls, complete with balls.
@@ -10,3 +11,6 @@ We are The Breakers of Bricks, The Crushers of Cinderblocks, The Anihilators of 
 
 
 
+=======
+We are The Breakers of Bricks, The Crushers of Cinderblocks, The Annihilators of All Generic Stackable Solids
+>>>>>>> master
