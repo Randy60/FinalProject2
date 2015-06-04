@@ -82,9 +82,9 @@ void draw(){
      bricks.remove(i);
      i--;
      //making powerups
-     if(true){ //r.nextInt(2) == 0){
-         powerups.add(new Powerup(it.xcor, it.ycor, 6));
-         //powerups.add(new Powerup(it.xcor, it.ycor));
+     if(r.nextInt(5) == 0){
+         //powerups.add(new Powerup(it.xcor, it.ycor, 6));
+         powerups.add(new Powerup(it.xcor, it.ycor));
      }
    }else{
    if(it.isSteel){
