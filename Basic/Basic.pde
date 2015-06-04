@@ -82,8 +82,8 @@ void draw(){
      bricks.remove(i);
      i--;
      //making powerups
-     if(true){ //r.nextInt(2) == 0){
-         powerups.add(new Powerup(it.xcor, it.ycor, 6));
+     if(Math.random() > 0.50){ //r.nextInt(2) == 0){
+         powerups.add(new Powerup(it.xcor, it.ycor, 1));
          //powerups.add(new Powerup(it.xcor, it.ycor));
      }
    }else{

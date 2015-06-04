@@ -1,5 +1,5 @@
 public class Ball{
-  public float x, y, xdir, ydir;
+  public float x, y, xdir, ydir, ydirpermenant;
   public int size;
   public boolean killMe = false;
   public boolean gravity = false; // checks for gravity powerup
@@ -12,6 +12,7 @@ public class Ball{
    size = s;
    xdir = xd;
    ydir = yd;
+   ydirpermenant = yd;
   }
   public int size(){
     return size;
@@ -35,11 +36,14 @@ public class Ball{
   public void move(int barAt, ArrayList<Brick> bricks){
     if(isInPlay){
         if(gravity){
+          if(gcount%3== 0){
          ydir+=.5;
+          }
           gcount--;
          if(gcount == 0){
           gravity = false;
           gcount = 600;
+          ydir = ydirpermenant*(int)(ydir/Math.abs(ydir));
          } 
         }
         if(x < size || x > width-size){
