@@ -1,5 +1,5 @@
 public class Ball{
-  public float x, y, xdir, ydir, ydirpermenant;
+  public float x, y, xdir, ydir, ydirpermanent;
   public int size;
   public boolean killMe = false;
   public boolean gravity = false; // checks for gravity powerup
@@ -12,7 +12,7 @@ public class Ball{
    size = s;
    xdir = xd;
    ydir = yd;
-   ydirpermenant = yd;
+   ydirpermanent = yd;
   }
   public int size(){
     return size;
@@ -66,23 +66,10 @@ public class Ball{
         }
         if(y > 750){
         if(y+size >= height){
-          if(released){
-            //This one never happens!!!
-             xdir = (float)((x-(barAt+width/16))/5);
-             ydir = 0-Math.abs(ydir_saved);
-             y -= 100;
-             released = false;
-             System.out.println("Good job!");
-           }else if(x > barAt && x < barAt+width/8 && !catchable){
+           if(x > barAt && x < barAt+width/8){
              //This happens normal
             xdir = (float)((x-(barAt+width/16))/5);
             ydir = 0-Math.abs(ydir);
-           }else if(x > barAt && x < barAt+width/8 && !released && catchable){ //&& xdir != 0 && ydir != 0){
-             //This happens once
-             ydir_saved = ydir;
-             xdir = 0;
-             ydir = 0;
-             y = height-25;
            }else{
              //NOMRAL?
              if(y >= height){
