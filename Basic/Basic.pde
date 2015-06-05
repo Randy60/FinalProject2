@@ -8,6 +8,7 @@ boolean moveLeft, moveRight;
 int barLoc = 400;
 int timer = 239;
 int lives = 9;
+int catchLine;
 ArrayList<Powerup> powerups = new ArrayList<Powerup>();
 Random r = new Random();
 // for wide powerup: int barWidth = width/8;
@@ -100,11 +101,11 @@ void draw(){
       powerups.get(i).fall();
        if(powerups.get(i).checkGot(barLoc, height - 20)){
           if(powerups.get(i).type == 0){
-            balls.add(new Ball((int)balls.get(0).getX()-10, (int)balls.get(0).getY()-15, 15, r.nextInt(10) - 5, (r.nextInt(3) - 1) * 7));
-            balls.add(new Ball((int)balls.get(0).getX()-5, (int)balls.get(0).getY()-15, 15, r.nextInt(30) - 15, (r.nextInt(3) - 1) * 7));
-            balls.add(new Ball((int)balls.get(0).getX(), (int)balls.get(0).getY()-15, 15, r.nextInt(20) - 10, (r.nextInt(3) - 1) * 7));
-            balls.add(new Ball((int)balls.get(0).getX()+5, (int)balls.get(0).getY()-15, 15, r.nextInt(15) - 7, (r.nextInt(3) - 1) * 7));
-            balls.add(new Ball((int)balls.get(0).getX()+10, (int)balls.get(0).getY()-15, 15, r.nextInt(25) - 12, (r.nextInt(3) - 1) * 7));
+            balls.add(new Ball((int)balls.get(0).getX()-10, (int)balls.get(0).getY()-15, 15, r.nextInt(10) - 5, -7));
+            balls.add(new Ball((int)balls.get(0).getX()-5, (int)balls.get(0).getY()-15, 15, r.nextInt(30) - 15, -7));
+            balls.add(new Ball((int)balls.get(0).getX(), (int)balls.get(0).getY()-15, 15, r.nextInt(20) - 10, -7));
+            balls.add(new Ball((int)balls.get(0).getX()+5, (int)balls.get(0).getY()-15, 15, r.nextInt(15) - 7, -7));
+            balls.add(new Ball((int)balls.get(0).getX()+10, (int)balls.get(0).getY()-15, 15, r.nextInt(25) - 12, -7));
             for(int j = 1; j < balls.size(); j++){
              balls.get(j).ydir+=1; 
             }
@@ -123,6 +124,7 @@ void draw(){
           }else{
               for(int k = 0; k < balls.size(); k++){
                 balls.get(k).catchable = true;
+                catchLine;
               }
           }
         powerups.remove(i);
@@ -131,9 +133,12 @@ void draw(){
   }
   }
   //catch method
-  if(JPressed){
+  if(spacePressed && catchable){
     for(int i = 0; i < balls.size(); i++){
-      balls.get(i).released = true;
+      if(balls.get(i).caught == true){
+       balls.get(i).isInPlay = true;
+       balls.get(i).xdir = catchLine; 
+      }
     }
   }
   fill(100);
@@ -141,23 +146,17 @@ void draw(){
   rect(barLoc, height-20, width/8, height/5, 5);
   if(moveRight && barLoc+width/8 <= width && !levelUp){
      barLoc+=12;
-     for(int i = 0; i < balls.size(); i++){
-      if(!(balls.get(i).released) && balls.get(i).catchable && balls.get(i).ydir == 0){
-         balls.get(i).x += 12; 
-      }
      }
   }
   if(moveLeft && barLoc >= 0 && !levelUp){
     barLoc-=12;
-         for(int i = 0; i < balls.size(); i++){
-      if(!(balls.get(i).released) && balls.get(i).catchable && balls.get(i).ydir == 0){
-         balls.get(i).x -= 12; 
-      }
-     }
   }
   }
   if(levelUp){
    powerups = new ArrayList<Powerup>();
+   for(int i = 0; i < balls.size(); i++){
+      balls.get(i).catchable = false;
+   }
    fill(20, 220);
    if(spacePressed){
    rect(width/8, height/8, 3*width/4, 3*height/4, height/32);
@@ -204,7 +203,7 @@ void draw(){
   }
  fill(0);
  textSize(10);
- text("lives: "+lives+"\n"+"Press 'P' to pause"+"\n"+"Press 'J' to release balls"+"\n"+"move with left and right arrow", 0, 15);
+ text("lives: "+lives+"\n"+"Press 'P' to pause"+"\n"+"move with left and right arrow", 0, 15);
 }
 void keyPressed(){
   if(key == CODED){
@@ -222,9 +221,6 @@ void keyPressed(){
   if(keyCode == 32){
        spacePressed = true; 
    }
-  if(keyCode == 74){
-    JPressed = true;
-  }  
 }
 void keyReleased(){
  if(key == CODED){
@@ -240,7 +236,4 @@ void keyReleased(){
   spacePressed = false;
    } 
  }
-   if(keyCode == 74){
-    JPressed = false;
-  }  
 }
