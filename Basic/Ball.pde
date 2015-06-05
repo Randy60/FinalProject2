@@ -4,8 +4,7 @@ public class Ball{
   public boolean killMe = false;
   public boolean gravity = false; // checks for gravity powerup
   boolean catchable = false; // checks for catch powerup
-  boolean released = false; // checks if ball has been released
-  float ydir_saved; // to save ydir for release
+  boolean caught = false; // checks if ball has been released
   public Ball(int a, int b, int s, int xd, int yd){
    x = a;
    y = b;
@@ -43,7 +42,7 @@ public class Ball{
          if(gcount == 0){
           gravity = false;
           gcount = 600;
-          ydir = ydirpermenant*(int)(ydir/Math.abs(ydir));
+          ydir = ydirpermanent*(int)(ydir/Math.abs(ydir));
          } 
         }
         if(x < size || x > width-size){
@@ -66,12 +65,13 @@ public class Ball{
         }
         if(y > 750){
         if(y+size >= height){
-           if(x > barAt && x < barAt+width/8){
-             //This happens normal
+           if(x > barAt && x < barAt+width/8 && !catchable){
             xdir = (float)((x-(barAt+width/16))/5);
             ydir = 0-Math.abs(ydir);
+           }else if(x > barAt && x < barAt+width/8 && catchable){
+              isInPlay = false;
+              caught = true;
            }else{
-             //NOMRAL?
              if(y >= height){
             xdir = 0;
             y+=ydir;
