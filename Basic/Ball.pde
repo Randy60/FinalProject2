@@ -1,13 +1,17 @@
 public class Ball{
-  public float x, y, xdir, ydir;
+  public float x, y, xdir, ydir, ydirpermanent;
   public int size;
   public boolean killMe = false;
+  public boolean gravity = false; // checks for gravity powerup
+  boolean catchable = false; // checks for catch powerup
+  boolean caught = false; // checks if ball has been released
   public Ball(int a, int b, int s, int xd, int yd){
    x = a;
    y = b;
    size = s;
    xdir = xd;
    ydir = yd;
+   ydirpermanent = yd;
   }
   public int size(){
     return size;
@@ -24,10 +28,23 @@ public class Ball{
   void pause(){
    isInPlay=false; 
   }
+  int gcount = 600;
+  
   int howManySub0 = 0;
   boolean isInPlay = true;
-  public void move(int barAt, ArrayList<Brick> bricks){
+  public void move(int barAt, int barWidth, ArrayList<Brick> bricks){
     if(isInPlay){
+        if(gravity){
+          if(gcount%3== 0){
+         ydir+=.5;
+          }
+          gcount--;
+         if(gcount == 0){
+          gravity = false;
+          gcount = 600;
+          ydir = ydirpermanent*(int)(ydir/Math.abs(ydir));
+         } 
+        }
         if(x < size || x > width-size){
           howManySub0++;
         }else{
@@ -48,9 +65,13 @@ public class Ball{
         }
         if(y > 750){
         if(y+size >= height){
-          if(x > barAt && x < barAt+width/8){
-            xdir = (float)((x-(barAt+width/16))/5);
+           if(x > barAt && x < barAt+barWidth && !catchable){
+            xdir = (float)((x-(barAt+barWidth/2))/5);
             ydir = 0-Math.abs(ydir);
+           }else if(x > barAt && x < barAt+barWidth && catchable){
+              isInPlay = false;
+              caught = true;
+              ydir = 0-Math.abs(ydir);
            }else{
              if(y >= height){
             xdir = 0;
