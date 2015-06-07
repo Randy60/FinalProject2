@@ -39,9 +39,8 @@ public class Powerup{
   }
   //fix catch distance
   public boolean checkGot(int platformXPos, int platformYPos, int barWidth){
-    if(yposMID > 750){
-    if (XPOS_LEFT >= platformXPos - barWidth/2 && XPOS_RIGHT <= platformXPos + barWidth/2
-        && yposBOT >= platformYPos - height/10 && yposTOP <= platformYPos + height/10){
+    if(yposBOT >= 19*height/20){
+    if (XPOS_LEFT <= barLoc+barWidth && XPOS_RIGHT >= barLoc){
           return true;
         }
     }
@@ -69,5 +68,22 @@ public class Powerup{
     yposBOT += FALLING_SPEED;
     triangle(XPOS_LEFT, yposMID, XPOS_MID, yposTOP, XPOS_RIGHT, yposMID);
     triangle(XPOS_LEFT, yposMID, XPOS_MID, yposBOT, XPOS_RIGHT, yposMID);
+    textSize(10);
+    fill(0);
+    if(type == 0){
+      text("multi", XPOS_MID-11, yposBOT+8);
+    }else if(type == 1){
+      text("gravity", XPOS_MID-14, yposBOT+8);
+    }else if(type == 2){
+      text("lasers", XPOS_MID-11, yposBOT+8);
+    }else if(type == 3){
+      text("gun", XPOS_MID-8, yposBOT+8);
+    }else if(type == 4){
+      text("wide", XPOS_MID-8, yposBOT+8);
+    }else if(type == 5){
+      text("life", XPOS_MID-8, yposBOT+8);
+    }else{
+      text("catch", XPOS_MID-11, yposBOT+8);
+    }
   }
 }

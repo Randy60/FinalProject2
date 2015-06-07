@@ -7,13 +7,14 @@ int levelAt = 1;
 boolean moveLeft, moveRight;
 int barLoc = 400;
 int timer = 239;
-int lives = 9;
+int lives = 5;
 int catchLine;
 int lineReverse = 1;
 boolean catchCheck = false;
 ArrayList<Powerup> powerups = new ArrayList<Powerup>();
 Random r = new Random();
 int barWidth;
+Fireables shooter = new Fireables();
 
 void setup(){
   size(800, 800);
@@ -35,16 +36,19 @@ boolean noBricks(){
 void draw(){
   if(noBricks() && levs.howManyLevels >= levelAt){
    bricks = levs.getLevel(levelAt++);
-  levelUp = true; 
+  levelUp = true;
   }
   if(levelUp){
+    shooter.shotsOut = new ArrayList<Float>();
+    shooter.laserOn = false;
+    shooter.gunOn = false;
      barLoc = width/2-width/16;
         if(balls.size() > 1){
          for(int i = 1; i < balls.size(); i++){
           balls.remove(balls.size()-1);
          } 
         }
-        balls.set(0, new Ball(width/2, height-25, 15, r.nextInt(14)-7, -7));
+ 
         balls.get(0).xdir+=.01;
    for(int i = 0; i < balls.size(); i++){
     balls.get(i).pause();
@@ -82,20 +86,20 @@ void draw(){
   }
   for(int i = 0; i < bricks.size(); i++){
    Brick it = bricks.get(i);
-   if(it.level <= 0){
+   if(it.level <= 0.50){
      bricks.remove(i);
      i--;
      //making powerups
-     if(true){//(Math.random() >= 0.50){
+     if(Math.random() >= 0.20){
          powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(7)));
      }
    }else{
    if(it.isSteel){
      fill(120);
    }else{
-   fill(125+it.level*20, 50, 25);
+   fill(125+(int)(it.level)*20, 50, 25);
    }
-   rect(it.xcor, it.ycor, it.xsize, it.ysize, 10 - it.level); 
+   rect(it.xcor, it.ycor, it.xsize, it.ysize, 10 - (int)(it.level)); 
   }
   }
   //powerup methods
@@ -104,7 +108,7 @@ void draw(){
        if(powerups.get(i).checkGot(barLoc, height - 20, barWidth)){
           if(powerups.get(i).type == 0){
             balls.add(new Ball((int)balls.get(0).getX()-10, (int)balls.get(0).getY()-15, 15, r.nextInt(10) - 5, -7));
-            balls.add(new Ball((int)balls.get(0).getX()-5, (int)balls.get(0).getY()-15, 15, r.nextInt(30) - 15, -7));
+            balls.add(new Ball((int)balls.get(0).getX()-5, (int)balls.get(0).getY()-15, 15, r.nextInt(30) - 15, 7));
             balls.add(new Ball((int)balls.get(0).getX(), (int)balls.get(0).getY()-15, 15, r.nextInt(20) - 10, -7));
             balls.add(new Ball((int)balls.get(0).getX()+5, (int)balls.get(0).getY()-15, 15, r.nextInt(15) - 7, -7));
             balls.add(new Ball((int)balls.get(0).getX()+10, (int)balls.get(0).getY()-15, 15, r.nextInt(25) - 12, -7));
@@ -117,8 +121,12 @@ void draw(){
             }
           }else if(powerups.get(i).type == 2){
               //lasers
+              shooter.laser();
+              barWidth = width/8;
           }else if(powerups.get(i).type == 3){
               //cannons
+              barWidth = width/8;
+              shooter.gun();
           }else if(powerups.get(i).type == 4){
               barWidth = width/4;    
           }else if(powerups.get(i).type == 5){
@@ -146,6 +154,7 @@ void draw(){
   fill(100);
   fill(0, 200, 80);
   rect(barLoc, height-20, barWidth, height/5, 5);
+  shooter.keepUp();
   catchCheck = false;
   for(Ball ball: balls){
     if(ball.catchable && !ball.isInPlay){
@@ -154,7 +163,7 @@ void draw(){
     }
   }
   if(moveRight && barLoc+barWidth <= width && !levelUp && !catchCheck){
-     barLoc+=12;
+      barLoc+=12;
      }
   }
   if(moveLeft && barLoc >= 0 && !levelUp && !catchCheck){
@@ -191,6 +200,9 @@ void draw(){
    }
   }
   if(balls.size() == 0){
+    shooter.shotsOut = new ArrayList<Float>();
+    shooter.laserOn = false;
+    shooter.gunOn = false;
    fill(20, 220);
    rect(width/8, height/8, 3*width/4, height/4, height/32);
    textSize(width/15);
@@ -221,7 +233,7 @@ void draw(){
   }
  fill(0);
  textSize(10);
- text("lives: "+lives+"\n"+"Press 'P' to pause"+"\n"+"move with left and right arrow", 0, 15);
+ text("lives: "+lives+"\n"+"Press P to pause"+"\n"+"move with LEFT and RIGHT arrow"+"\n"+"shoot with SPACE", 0, 15);
 }
 void keyPressed(){
   if(key == CODED){
@@ -237,6 +249,9 @@ void keyPressed(){
      paused = !paused;
   }
   if(keyCode == 32){
+    if(!paused){
+     shooter.shoot(); 
+    }
        spacePressed = true; 
    }
 }
