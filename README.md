@@ -8,9 +8,11 @@ We are The Breakers of Bricks, The Crushers of Cinderblocks, The Anihilators of 
 2015.5.25: The impossible level was added by Randy. Randy also added xdir/ydir checking to stop balls from boomeranging around bricks. Later, Randy added two more levels.
 2015.5.26: Added .1 to all xdirs to avoid balls bouncing straight up forever.
 2015.5.27: Randy authored and Nino merged a fix that checked the ball's height to make scanning faster. Also fixed bug where hitting space while the level is on holds space til level ends. Dropped timer to 4 secondsish.
+2015.5.38: Randy authoured level 8*.
+2015.6.5: Randy added level 9*.
+2015.6.7: Randy got lasers and guns working, and added level 10*.
 
-
-
+*Levels not added in order
 =======
 We are The Breakers of Bricks, The Crushers of Cinderblocks, The Annihilators of All Generic Stackable Solids
 >>>>>>> master
