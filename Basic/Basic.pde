@@ -86,8 +86,8 @@ void draw(){
      bricks.remove(i);
      i--;
      //making powerups
-     if(Math.random() > 0.50){
-         powerups.add(new Powerup(it.xcor, it.ycor, 4));
+     if(true){//(Math.random() >= 0.50){
+         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(7)));
      }
    }else{
    if(it.isSteel){
@@ -101,7 +101,7 @@ void draw(){
   //powerup methods
   for(int i = 0; i < powerups.size(); i ++){
       powerups.get(i).fall();
-       if(powerups.get(i).checkGot(barLoc, height - 20)){
+       if(powerups.get(i).checkGot(barLoc, height - 20, barWidth)){
           if(powerups.get(i).type == 0){
             balls.add(new Ball((int)balls.get(0).getX()-10, (int)balls.get(0).getY()-15, 15, r.nextInt(10) - 5, -7));
             balls.add(new Ball((int)balls.get(0).getX()-5, (int)balls.get(0).getY()-15, 15, r.nextInt(30) - 15, -7));
@@ -131,7 +131,7 @@ void draw(){
           }
         powerups.remove(i);
        }else if(powerups.get(i).yposTOP > height){
-   powerups.remove(i); 
+         powerups.remove(i); 
   }
   }
   //catch method

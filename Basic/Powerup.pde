@@ -38,10 +38,10 @@ public class Powerup{
      yposBOT = startY + 7;
   }
   //fix catch distance
-  public boolean checkGot(int platformXPos, int platformYPos){
+  public boolean checkGot(int platformXPos, int platformYPos, int barWidth){
     if(yposMID > 750){
-    if (XPOS_LEFT <= platformXPos + width/16 + 14 && XPOS_RIGHT >= platformXPos - width/16 - 14
-        && yposBOT >= platformYPos - height/10 && yposTOP <= platformYPos + height/10 + 14){
+    if (XPOS_LEFT >= platformXPos - barWidth/2 && XPOS_RIGHT <= platformXPos + barWidth/2
+        && yposBOT >= platformYPos - height/10 && yposTOP <= platformYPos + height/10){
           return true;
         }
     }
