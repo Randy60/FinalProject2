@@ -13,7 +13,7 @@ int lineReverse = 1;
 boolean catchCheck = false;
 ArrayList<Powerup> powerups = new ArrayList<Powerup>();
 Random r = new Random();
-// for wide powerup: int barWidth = width/8;
+int barWidth;
 
 void setup(){
   size(800, 800);
@@ -22,6 +22,7 @@ void setup(){
   balls = new ArrayList<Ball>();
   balls.add(new Ball(barLoc+width/16-5, height-15, 15, -5, -7));
   bricks = levs.getLevel(levelAt++);
+  barWidth = width/8;
 }
 boolean noBricks(){
   for(int i = 0; i < bricks.size(); i++){
@@ -76,7 +77,7 @@ void draw(){
       balls.remove(i);
       i--;
     }
-    thisun.move(barLoc, bricks);
+    thisun.move(barLoc, barWidth, bricks);
     ellipse(thisun.getX(), thisun.getY(), thisun.size(), thisun.size());
   }
   for(int i = 0; i < bricks.size(); i++){
@@ -86,8 +87,7 @@ void draw(){
      i--;
      //making powerups
      if(Math.random() > 0.50){
-         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(7)));
-         //powerups.add(new Powerup(it.xcor, it.ycor));
+         powerups.add(new Powerup(it.xcor, it.ycor, 4));
      }
    }else{
    if(it.isSteel){
@@ -120,13 +120,13 @@ void draw(){
           }else if(powerups.get(i).type == 3){
               //cannons
           }else if(powerups.get(i).type == 4){
-              // for wide:  barWidth = width/4;      
+              barWidth = width/4;    
           }else if(powerups.get(i).type == 5){
             lives++;  
           }else{
+              catchLine = 0;
               for(int k = 0; k < balls.size(); k++){
                 balls.get(k).catchable = true;
-                catchLine = 0;
               }
           }
         powerups.remove(i);
@@ -145,7 +145,7 @@ void draw(){
   }
   fill(100);
   fill(0, 200, 80);
-  rect(barLoc, height-20, width/8, height/5, 5);
+  rect(barLoc, height-20, barWidth, height/5, 5);
   catchCheck = false;
   for(Ball ball: balls){
     if(ball.catchable && !ball.isInPlay){
@@ -153,7 +153,7 @@ void draw(){
      break; 
     }
   }
-  if(moveRight && barLoc+width/8 <= width && !levelUp && !catchCheck){
+  if(moveRight && barLoc+barWidth <= width && !levelUp && !catchCheck){
      barLoc+=12;
      }
   }
@@ -166,7 +166,7 @@ void draw(){
       lineReverse = -1 * lineReverse;
     }
     catchLine += lineReverse * 5;
-    line(barLoc + width/16, height - 20, barLoc + width/16 + catchLine, height - 40);
+    line(barLoc + barWidth/2, height - 20, barLoc + barWidth/2 + catchLine, height - 40);
   }
   }
   if(levelUp){
@@ -174,6 +174,7 @@ void draw(){
    for(int i = 0; i < balls.size(); i++){
       balls.get(i).catchable = false;
    }
+   barWidth = width/8;
    fill(20, 220);
    if(spacePressed){
    rect(width/8, height/8, 3*width/4, 3*height/4, height/32);

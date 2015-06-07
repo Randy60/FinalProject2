@@ -32,7 +32,7 @@ public class Ball{
   
   int howManySub0 = 0;
   boolean isInPlay = true;
-  public void move(int barAt, ArrayList<Brick> bricks){
+  public void move(int barAt, int barWidth, ArrayList<Brick> bricks){
     if(isInPlay){
         if(gravity){
           if(gcount%3== 0){
@@ -65,10 +65,10 @@ public class Ball{
         }
         if(y > 750){
         if(y+size >= height){
-           if(x > barAt && x < barAt+width/8 && !catchable){
-            xdir = (float)((x-(barAt+width/16))/5);
+           if(x > barAt && x < barAt+barWidth && !catchable){
+            xdir = (float)((x-(barAt+barWidth/2))/5);
             ydir = 0-Math.abs(ydir);
-           }else if(x > barAt && x < barAt+width/8 && catchable){
+           }else if(x > barAt && x < barAt+barWidth && catchable){
               isInPlay = false;
               caught = true;
               ydir = 0-Math.abs(ydir);
