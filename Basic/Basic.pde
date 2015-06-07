@@ -9,6 +9,8 @@ int barLoc = 400;
 int timer = 239;
 int lives = 9;
 int catchLine;
+int lineReverse = 1;
+boolean catchCheck = false;
 ArrayList<Powerup> powerups = new ArrayList<Powerup>();
 Random r = new Random();
 // for wide powerup: int barWidth = width/8;
@@ -83,8 +85,8 @@ void draw(){
      bricks.remove(i);
      i--;
      //making powerups
-     if(Math.random() > 0.50){ //r.nextInt(2) == 0){
-         powerups.add(new Powerup(it.xcor, it.ycor, 1));
+     if(Math.random() > 0.50){
+         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(7)));
          //powerups.add(new Powerup(it.xcor, it.ycor));
      }
    }else{
@@ -124,7 +126,7 @@ void draw(){
           }else{
               for(int k = 0; k < balls.size(); k++){
                 balls.get(k).catchable = true;
-                catchLine;
+                catchLine = 0;
               }
           }
         powerups.remove(i);
@@ -133,9 +135,9 @@ void draw(){
   }
   }
   //catch method
-  if(spacePressed && catchable){
+  if(spacePressed){
     for(int i = 0; i < balls.size(); i++){
-      if(balls.get(i).caught == true){
+      if(balls.get(i).catchable && balls.get(i).caught){
        balls.get(i).isInPlay = true;
        balls.get(i).xdir = catchLine; 
       }
@@ -144,12 +146,27 @@ void draw(){
   fill(100);
   fill(0, 200, 80);
   rect(barLoc, height-20, width/8, height/5, 5);
-  if(moveRight && barLoc+width/8 <= width && !levelUp){
+  catchCheck = false;
+  for(Ball ball: balls){
+    if(ball.catchable && !ball.isInPlay){
+     catchCheck = true;
+     break; 
+    }
+  }
+  if(moveRight && barLoc+width/8 <= width && !levelUp && !catchCheck){
      barLoc+=12;
      }
   }
-  if(moveLeft && barLoc >= 0 && !levelUp){
+  if(moveLeft && barLoc >= 0 && !levelUp && !catchCheck){
     barLoc-=12;
+  }
+  for(Ball ball : balls){
+  if(ball.catchable && !ball.isInPlay){
+    if(catchLine > 60 || catchLine < -60){
+      lineReverse = -1 * lineReverse;
+    }
+    catchLine += lineReverse * 5;
+    line(barLoc + width/16, height - 20, barLoc + width/16 + catchLine, height - 40);
   }
   }
   if(levelUp){

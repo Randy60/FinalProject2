@@ -71,6 +71,7 @@ public class Ball{
            }else if(x > barAt && x < barAt+width/8 && catchable){
               isInPlay = false;
               caught = true;
+              ydir = 0-Math.abs(ydir);
            }else{
              if(y >= height){
             xdir = 0;
