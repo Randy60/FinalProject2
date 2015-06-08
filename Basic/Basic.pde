@@ -21,7 +21,7 @@ void setup(){
   background(225);
   levelUp = true;
   balls = new ArrayList<Ball>();
-  balls.add(new Ball(barLoc+width/16-5, height-15, 15, -5, -7));
+  balls.add(new Ball(barLoc+width/16, height-25, 15, -5, -7));
   bricks = levs.getLevel(levelAt++);
   barWidth = width/8;
 }
@@ -48,7 +48,7 @@ void draw(){
           balls.remove(balls.size()-1);
          } 
         }
- 
+        balls.set(0, new Ball(barLoc+width/16, height-25, 15, -5, -7));
         balls.get(0).xdir+=.01;
    for(int i = 0; i < balls.size(); i++){
     balls.get(i).pause();
