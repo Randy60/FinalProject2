@@ -15,6 +15,7 @@ public class Powerup{
   4 = wide
   5 = extra life
   6 = catch
+  7 = invert
   **/
 
 //text for different types
@@ -60,6 +61,10 @@ public class Powerup{
       fill(255, 128, 0);
     }else if(type == 5){
       fill(0, 255, 0);
+    }else if(type == 6){
+      fill(0, 160, 160);
+    }else if(type == 7){
+      fill(190, 230, 255);
     }else{
       fill(255, 0, 255);
     }
@@ -82,6 +87,10 @@ public class Powerup{
       text("wide", XPOS_MID-8, yposBOT+8);
     }else if(type == 5){
       text("life", XPOS_MID-8, yposBOT+8);
+    }else if(type == 6){
+      text("invert", XPOS_MID-11, yposBOT+8);
+    }else if(type == 7){
+      text("fun", XPOS_MID-8, yposBOT+8);
     }else{
       text("catch", XPOS_MID-11, yposBOT+8);
     }

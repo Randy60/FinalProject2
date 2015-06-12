@@ -10,7 +10,9 @@ int wideTimer = 0;
 int timer = 239;
 int lives = 5;
 int catchLine;
-int lineReverse = 1;
+int invertTime = 0;
+int lineReverse = 1; 
+int tripTimer = 0;
 boolean catchCheck = false;
 ArrayList<Powerup> powerups = new ArrayList<Powerup>();
 Random r = new Random();
@@ -44,6 +46,8 @@ void draw(){
     shooter.shotsOut = new ArrayList<Float>();
     shooter.laserOn = false;
     shooter.gunOn = false;
+    tripTimer = 0;
+    invertTime = 0;
      barLoc = width/2-width/16;
         if(balls.size() > 1){
          for(int i = 1; i < balls.size(); i++){
@@ -75,7 +79,12 @@ void draw(){
    fill(255);
    text("GAME PAUSED", width/4, height/4);
   }else{
- background(190, 230, 255, 5);
+    if(tripTimer <= 0){
+     background(190, 230, 255, 5);
+    }else{
+      tripTimer--;
+     background((1090-tripTimer)%255,(1130-3*tripTimer)%255,(tripTimer*tripTimer)%255, 5);
+    }
  if(wideTimer == 0){
    barWidth = width/8;
  }else{
@@ -93,6 +102,9 @@ void draw(){
     fill(120);
     ellipse(thisun.getX(), thisun.getY(), thisun.size(), thisun.size());
   }
+  if(invertTime > 0){
+    invertTime--;
+  }
   for(int i = 0; i < bricks.size(); i++){
    Brick it = bricks.get(i);
    if(it.level <= 0.50){
@@ -100,7 +112,7 @@ void draw(){
      i--;
      //making powerups
      if(Math.random() >= 0.20){
-         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(7)));
+         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(8)));
      }
    }
   }
@@ -123,6 +135,14 @@ void draw(){
    fill(125+(int)(it.level)*20, 50, 25);
    }
    rect(it.xcor, it.ycor, it.xsize, it.ysize, 10 - (int)(it.level));
+  }
+  if(tripTimer > 0){
+    fill(100+(tripTimer%156), 100+((4*tripTimer)%156), 100+((5*tripTimer)%156), 100+tripTimer%100);
+    ellipse(width/4, height/4, 3*Math.abs(tripTimer%200-100), 3*Math.abs(tripTimer%200-100));
+    ellipse(3*width/4, height/4, 3*Math.abs(tripTimer%200-100), 3*Math.abs(tripTimer%200-100));
+    ellipse(width/4, 3*height/4, 3*Math.abs(tripTimer%200-100), 3*Math.abs(tripTimer%200-100));
+    ellipse(3*width/4, 3*height/4, 3*Math.abs(tripTimer%200-100), 3*Math.abs(tripTimer%200-100));
+    ellipse(width/2, height/2, 3*Math.abs((tripTimer-100)%200-100), 3*Math.abs((tripTimer-100)%200-100));
   }
   //powerup methods
   for(int i = 0; i < powerups.size(); i ++){
@@ -157,6 +177,10 @@ void draw(){
               shooter.laserOn = false;    
           }else if(powerups.get(i).type == 5){
             lives++;  
+          }else if(powerups.get(i).type == 6){
+            invertTime = 600;
+          }else if(powerups.get(i).type == 7){
+            tripTimer = 900;
           }else{
               catchLine = 0;
               for(int k = 0; k < balls.size(); k++){
@@ -189,12 +213,21 @@ void draw(){
      break; 
     }
   }
+  }
+ if(invertTime == 0){ 
   if(moveRight && barLoc+barWidth <= width && !levelUp && !catchCheck){
       barLoc+=12;
      }
-  }
   if(moveLeft && barLoc >= 0 && !levelUp && !catchCheck){
     barLoc-=12;
+  }
+  }else{
+    if(moveLeft && barLoc+barWidth <= width && !levelUp && !catchCheck){
+      barLoc+=12;
+     }
+  if(moveRight && barLoc >= 0 && !levelUp && !catchCheck){
+    barLoc-=12;
+  }
   }
   for(Ball ball : balls){
   if(ball.catchable && !ball.isInPlay){
@@ -230,6 +263,8 @@ void draw(){
     shooter.shotsOut = new ArrayList<Float>();
     shooter.laserOn = false;
     shooter.gunOn = false;
+    tripTimer = 0;
+    invertTime = 0;
    fill(20, 220);
    rect(width/8, height/8, 3*width/4, height/4, height/32);
    textSize(width/15);
