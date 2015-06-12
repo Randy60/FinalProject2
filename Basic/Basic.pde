@@ -102,13 +102,17 @@ void draw(){
      if(Math.random() >= 0.20){
          powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(7)));
      }
-   }else{
+   }
+  }
+  for(int m = 20; m > 0; m--){
+  for(int i = 0; i < bricks.size(); i++){
+    Brick it = bricks.get(i);
    if(it.isSteel){
-     fill(100);
+     fill(120);
    }else{
    fill(105+(int)(it.level)*20-10, 40, 25);
    }
-   rect(it.xcor-10*(it.xcor/(width-40.0))+6, it.ycor-2, it.xsize-2, it.ysize, 10 - (int)(it.level)); 
+   rect(it.xcor-m*(it.xcor/(width-40.0))+1+(m/2.0), it.ycor-m/5.0, it.xsize-m/6.0, it.ysize, 10 - (int)(it.level)); 
   }
   }
   for(int i = 0; i < bricks.size(); i++){
@@ -118,7 +122,7 @@ void draw(){
    }else{
    fill(125+(int)(it.level)*20, 50, 25);
    }
-   rect(it.xcor, it.ycor, it.xsize, it.ysize, 10 - (int)(it.level)); 
+   rect(it.xcor, it.ycor, it.xsize, it.ysize, 10 - (int)(it.level));
   }
   //powerup methods
   for(int i = 0; i < powerups.size(); i ++){
@@ -245,7 +249,7 @@ void draw(){
      lives--;
      }else{
        levelAt = 1;
-       lives = 9;
+       lives = 5;
      }
      levelUp = true;
      for(int i = 0; i < bricks.size(); i++){

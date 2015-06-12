@@ -60,7 +60,7 @@ public class Ball{
         if(x <= 0 || x >= width){
           xdir*=-1;
         }
-        if(y <= 0){
+        if(y <= 0 && ydir < 0){
            ydir*=-1;
         }
         if(y > 750){
