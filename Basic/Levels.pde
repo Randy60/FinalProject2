@@ -1,8 +1,11 @@
 public class Levels{
+<<<<<<< HEAD
+=======
   public int howManyLevels = 10;
+>>>>>>> 62cb351d478b88ff5ce11e6d0b02ddafad38e917
   public ArrayList<Brick> getLevel(int i){
     ArrayList<Brick> temp = new ArrayList<Brick>();
-    if(i == 1){
+    if(i == ){
     temp.add(new Brick(9*width/20, 19*height/40, 1));
     temp.add(new Brick(9*width/20, 17*height/40, 1));
     temp.add(new Brick(7*width/20, 18*height/40, 1));
@@ -61,6 +64,7 @@ public class Levels{
         temp.add(new Brick(9*width/20, 15*height/40, 1));
     }
     if(i == 7){
+<<<<<<< HEAD
      for(int j = 0; j < 4; j++){
       temp.add(new Brick((1+j/2)*width/3-width/20, (1+j%2)*height/3-height/10-100, true));
       temp.add(new Brick((1+j/2)*width/3-width/20, (1+j%2)*height/3+height/20-100, true));
@@ -77,6 +81,16 @@ public class Levels{
       }
     }
     if(i == 9){
+=======
+     for(int j = 0; j < 10; j++){
+      temp.add(new Brick(j*width/10, (10-j)*height/20, 2));
+      for(int n = 9-j; n > 0; n--){
+        temp.add(new Brick(j*width/10, n*width/20, 1));
+      }
+     }
+    }
+    if(i == 8){
+>>>>>>> 62cb351d478b88ff5ce11e6d0b02ddafad38e917
       for(int k = 0; k < 10; k++){
       temp.add(new Brick(k*width/10, 0, (k%2)+1));
       temp.add(new Brick(k*width/10, 9*height/20, 2)); 
@@ -88,7 +102,10 @@ public class Levels{
        temp.add(new Brick(width-(k+1)*width/10, width/2-(k+1)*height/20, 1));  
       }
     }
+<<<<<<< HEAD
     if(i == 10){
+=======
+>>>>>>> 62cb351d478b88ff5ce11e6d0b02ddafad38e917
      for(int k = 0; k < 6; k++){
        temp.add(new Brick((k+2)*width/10, 3*height/20, 3));
        temp.add(new Brick((k+2)*width/10, 8*height/20, true));
@@ -101,7 +118,6 @@ public class Levels{
       temp.add(new Brick(5*width/10, k*height/20, 1));
       temp.add(new Brick(6*width/10, k*height/20, 1));
      }
-     
     }
     return temp;
   }  
