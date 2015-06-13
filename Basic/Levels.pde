@@ -101,7 +101,6 @@ public class Levels{
       temp.add(new Brick(5*width/10, k*height/20, 1));
       temp.add(new Brick(6*width/10, k*height/20, 1));
      }
-     
     }
     return temp;
   }  

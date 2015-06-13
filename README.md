@@ -13,6 +13,11 @@ We are The Breakers of Bricks, The Crushers of Cinderblocks, The Anihilators of 
 2015.6.4: Randy finished gravity.
 2015.6.5: Randy added level 9*.
 2015.6.7: Randy got lasers and guns working, and added level 10*. Nino finished the catch powerup, the wide powerup, and made adjustments to the catchGot method.
+2015.6.8: Randy added Basic 3D using shadows.
+2015.6.9: Randy updated 3D by angling the shadows.
+2015.6.10: Randy added invert and fixed 3D some more.
+2015.6.11: Randy added "FUN" - it makes the screen turn psycadelic for 10 seconds
+2015.6.13: Randy fixed a glitch in the levels.
 
 *Levels not added in order
 =======
