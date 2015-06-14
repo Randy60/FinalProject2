@@ -112,7 +112,7 @@ void draw(){
      i--;
      //making powerups
      if(Math.random() >= 0.20){
-         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(8)));
+         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(9)));
      }
    }
   }
@@ -231,11 +231,12 @@ void draw(){
   }
   for(Ball ball : balls){
   if(ball.catchable && !ball.isInPlay){
-    if(catchLine > 60 || catchLine < -60){
-      lineReverse = -1 * lineReverse;
+    if(moveLeft && catchLine > -45){
+      catchLine -= 5;
+    }else if(moveRight && catchLine < 50){
+      catchLine += 5;
     }
-    catchLine += lineReverse * 5;
-    line(barLoc + barWidth/2, height - 20, barLoc + barWidth/2 + catchLine, height - 40);
+    line(ball.x, ball.y, ball.x + catchLine, ball.y - 20);
   }
   }
   if(levelUp){
