@@ -3,13 +3,14 @@ ArrayList<Ball> balls;
 ArrayList<Brick> bricks;
 Levels levs = new Levels();
 boolean paused, levelUp, spacePressed, JPressed;
-int levelAt = 1;
+int levelAt = 10;
 boolean moveLeft, moveRight;
 int barLoc = 400;
 int wideTimer = 0;
 int timer = 239;
 int lives = 5;
 int catchLine;
+int catchTimer = 0;
 int invertTime = 0;
 int lineReverse = 1; 
 int tripTimer = 0;
@@ -40,6 +41,9 @@ void draw(){
   if(noBricks() && levs.howManyLevels >= levelAt){
    bricks = levs.getLevel(levelAt++);
   levelUp = true;
+  }
+  if(noBricks() && levelAt>= 10){
+   levelUp = true; 
   }
   if(levelUp){
     wideTimer = 0;
@@ -105,14 +109,22 @@ void draw(){
   if(invertTime > 0){
     invertTime--;
   }
+  if(catchTimer < 0){
+     for(int k = 0; k < balls.size(); k++){
+       balls.get(k).catchable = false;
+       balls.get(k).isInPlay = true;
+     }
+  }else{
+   catchTimer --; 
+  }
   for(int i = 0; i < bricks.size(); i++){
    Brick it = bricks.get(i);
    if(it.level <= 0.50){
      bricks.remove(i);
      i--;
      //making powerups
-     if(Math.random() >= 0.20){
-         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(9)));
+     if(true){//if(Math.random() >= 0.20){
+         powerups.add(new Powerup(it.xcor, it.ycor, 3));//r.nextInt(9)));
      }
    }
   }
@@ -186,6 +198,7 @@ void draw(){
               for(int k = 0; k < balls.size(); k++){
                 balls.get(k).catchable = true;
               }
+              catchTimer = 900;
           }
         powerups.remove(i);
        }else if(powerups.get(i).yposTOP > height){
@@ -239,6 +252,7 @@ void draw(){
     line(ball.x, ball.y, ball.x + catchLine, ball.y - 20);
   }
   }
+  if(levelUp){
    powerups = new ArrayList<Powerup>();
    for(int i = 0; i < balls.size(); i++){
       balls.get(i).catchable = false;
@@ -259,7 +273,7 @@ void draw(){
     text("press space to continue", width/4-25, height/4); 
    }
   }
-  if(balls.size() == 0 || levelAt == 11){
+  if(balls.size() == 0){
     shooter.shotsOut = new ArrayList<Float>();
     shooter.laserOn = false;
     shooter.gunOn = false;
@@ -272,7 +286,8 @@ void draw(){
         powerups = new ArrayList<Powerup>();
    if(levelAt == 11){
      text("Congraturations, you're winner!", width/3+12, height/4-20);
-  }else if(lives > 1){
+     lives = 0;
+  }else if(lives > 1 && levelAt != 11){
    text("YOU LOST", width/3+12, height/4-20);
    }else{
     text("GAME OVER", width/3+4, height/4-20);
