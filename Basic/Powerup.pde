@@ -16,6 +16,7 @@ public class Powerup{
   5 = extra life
   6 = catch
   7 = invert
+  8 = acid
   **/
 
 //text for different types

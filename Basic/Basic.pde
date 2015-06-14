@@ -111,19 +111,15 @@ void draw(){
      bricks.remove(i);
      i--;
      //making powerups
-     if(Math.random() >= 0.20){
-         powerups.add(new Powerup(it.xcor, it.ycor, r.nextInt(9)));
+     if(true){//Math.random() >= 0.10){
+         powerups.add(new Powerup(it.xcor+width/20, it.ycor, 8));//r.nextInt(9)));
      }
    }
   }
-  for(int m = 20; m > 0; m--){
+  for(int m = 20; m > 0; m-=4){
   for(int i = 0; i < bricks.size(); i++){
     Brick it = bricks.get(i);
-   if(it.isSteel){
-     fill(120);
-   }else{
-   fill(105+(int)(it.level)*20-10, 40, 25);
-   }
+  fill(0);
    rect(it.xcor-m*(it.xcor/(width-40.0))+1+(m/2.0), it.ycor-m/5.0, it.xsize-m/6.0, it.ysize, 10 - (int)(it.level)); 
   }
   }
@@ -165,13 +161,23 @@ void draw(){
               //lasers
               shooter.laser();
               barWidth = width/8;
+              if(wideTimer > 0){
+              barLoc+= width/16;
+              wideTimer = 0;
+              }
           }else if(powerups.get(i).type == 3){
               //cannons
               barWidth = width/8;
+              if(wideTimer > 0){
+              barLoc+= width/16;
+              wideTimer = 0;
+              }
               shooter.gun();
           }else if(powerups.get(i).type == 4){
               barWidth = width/4;
+              if(wideTimer == 0){
               barLoc-=width/16;
+              }
               wideTimer = 900;
               shooter.gunOn = false;
               shooter.laserOn = false;    
@@ -185,6 +191,11 @@ void draw(){
               catchLine = 0;
               for(int k = 0; k < balls.size(); k++){
                 balls.get(k).catchable = true;
+                barWidth = width/8;
+                if(wideTimer > 0){
+              barLoc+= width/16;
+              wideTimer = 0;
+              }
               }
           }
         powerups.remove(i);
@@ -197,7 +208,7 @@ void draw(){
     for(int i = 0; i < balls.size(); i++){
       if(balls.get(i).catchable && balls.get(i).caught){
        balls.get(i).isInPlay = true;
-       balls.get(i).xdir = catchLine; 
+       balls.get(i).xdir = catchLine/2.5;
       }
     }
   }
@@ -231,12 +242,12 @@ void draw(){
   }
   for(Ball ball : balls){
   if(ball.catchable && !ball.isInPlay){
-    if(moveLeft && catchLine > -45){
+    if(moveLeft && catchLine > -35){
       catchLine -= 5;
-    }else if(moveRight && catchLine < 50){
+    }else if(moveRight && catchLine < 35){
       catchLine += 5;
     }
-    line(ball.x, ball.y, ball.x + catchLine, ball.y - 20);
+    line(ball.x, ball.y, (ball.x + catchLine), (float)(ball.y - (Math.sqrt(1600-catchLine*catchLine))));
   }
   }
   if(levelUp){
