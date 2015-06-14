@@ -240,6 +240,13 @@ void draw(){
   }
   }
   if(levelUp){
+    if(levelAt == 11){
+   rect(width/8, height/8, 3*width/4, 3*height/4, height/32);
+   textSize(width/20);
+   fill(255);
+   text("Congraturations!", width/4, height/4);
+   text("You're winner!", 13*width/32, 2*height/3);
+    }
    powerups = new ArrayList<Powerup>();
    for(int i = 0; i < balls.size(); i++){
       balls.get(i).catchable = false;
