@@ -239,14 +239,6 @@ void draw(){
     line(ball.x, ball.y, ball.x + catchLine, ball.y - 20);
   }
   }
-  if(levelUp){
-    if(levelAt == 11){
-   rect(width/8, height/8, 3*width/4, 3*height/4, height/32);
-   textSize(width/20);
-   fill(255);
-   text("Congraturations!", width/4, height/4);
-   text("You're winner!", 13*width/32, 2*height/3);
-    }
    powerups = new ArrayList<Powerup>();
    for(int i = 0; i < balls.size(); i++){
       balls.get(i).catchable = false;
@@ -267,7 +259,7 @@ void draw(){
     text("press space to continue", width/4-25, height/4); 
    }
   }
-  if(balls.size() == 0){
+  if(balls.size() == 0 || levelAt == 11){
     shooter.shotsOut = new ArrayList<Float>();
     shooter.laserOn = false;
     shooter.gunOn = false;
@@ -278,7 +270,9 @@ void draw(){
    textSize(width/15);
    fill(255);
         powerups = new ArrayList<Powerup>();
-   if(lives > 1){
+   if(levelAt == 11){
+     text("Congraturations, you're winner!", width/3+12, height/4-20);
+  }else if(lives > 1){
    text("YOU LOST", width/3+12, height/4-20);
    }else{
     text("GAME OVER", width/3+4, height/4-20);
