@@ -42,7 +42,7 @@ public class Ball{
          if(gcount == 0){
           gravity = false;
           gcount = 600;
-          ydir = ydirpermanent*(int)(ydir/Math.abs(ydir));
+          ydir = -1*ydirpermanent*(int)(ydir/Math.abs(ydir));
          } 
         }
         if(x < size || x > width-size){
@@ -72,6 +72,7 @@ public class Ball{
               isInPlay = false;
               caught = true;
               ydir = 0-Math.abs(ydir);
+              y = 780; 
            }else{
              if(y >= height){
             xdir = 0;

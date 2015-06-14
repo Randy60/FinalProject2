@@ -18,6 +18,7 @@ We are The Breakers of Bricks, The Crushers of Cinderblocks, The Anihilators of 
 2015.6.10: Randy added invert and fixed 3D some more.
 2015.6.11: Randy added "FUN" - it makes the screen turn psycadelic for 10 seconds
 2015.6.13: Randy fixed a glitch in the levels.
+2015.6.14: Randy edited "catch" and dropped lag time by making shadows simpler.
 
 *Levels not added in order
 =======
