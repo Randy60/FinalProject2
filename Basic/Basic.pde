@@ -28,6 +28,11 @@ void setup(){
   balls.add(new Ball(barLoc+width/16, height-25, 15, -5, -7));
   bricks = levs.getLevel(levelAt++);
   barWidth = width/8;
+  for(int k = 0; k < balls.size(); k++){
+                balls.get(k).catchable = true;
+                balls.get(k).catchable = true;
+       balls.get(k).isInPlay = false;
+              }
 }
 boolean noBricks(){
   for(int i = 0; i < bricks.size(); i++){
@@ -38,6 +43,9 @@ boolean noBricks(){
   return true;
 }
 void draw(){
+  if(paused){
+    
+  }else{
   if(noBricks() && levs.howManyLevels >= levelAt){
    bricks = levs.getLevel(levelAt++);
   levelUp = true;
@@ -52,6 +60,11 @@ void draw(){
     shooter.gunOn = false;
     tripTimer = 0;
     invertTime = 0;
+    for(int k = 0; k < balls.size(); k++){
+                balls.get(k).catchable = true;
+                balls.get(k).catchable = true;
+       balls.get(k).isInPlay = false;
+              }
      barLoc = width/2-width/16;
         if(balls.size() > 1){
          for(int i = 1; i < balls.size(); i++){
@@ -76,13 +89,6 @@ void draw(){
    }
   }
   }
-  if(paused){
-    fill(20, 100);
-   rect(width/8, height/8, 3*width/4, height/4, height/32);
-   textSize(width/14);
-   fill(255);
-   text("GAME PAUSED", width/4, height/4);
-  }else{
     if(tripTimer <= 0){
      background(190, 230, 255, 5);
     }else{
@@ -114,8 +120,7 @@ void draw(){
        balls.get(k).catchable = false;
        balls.get(k).isInPlay = true;
      }
-  }else{
-   catchTimer --; 
+  }else{ 
   }
   for(int i = 0; i < bricks.size(); i++){
    Brick it = bricks.get(i);
@@ -203,13 +208,13 @@ void draw(){
               catchLine = 0;
               for(int k = 0; k < balls.size(); k++){
                 balls.get(k).catchable = true;
+              }
                 barWidth = width/8;
                 if(wideTimer > 0){
               barLoc+= width/16;
               wideTimer = 0;
               }
-              }
-              catchTimer = 900;
+              catchTimer = 1;
           }
         powerups.remove(i);
        }else if(powerups.get(i).yposTOP > height){
@@ -229,7 +234,7 @@ void draw(){
   rect(barLoc-4*(barLoc/(width-40.0))+1, height-22, barWidth, 19, 5);
   fill(0, 200, 80);
   rect(barLoc-1, height-20, barWidth, 19, 5);
-  shooter.keepUp();
+  shooter.keepUp(); 
   catchCheck = false;
   for(Ball ball: balls){
     if(ball.catchable && !ball.isInPlay){
@@ -269,11 +274,11 @@ void draw(){
      rect(width/8, height/8, 3*width/4, height/4, height/32);
      textSize(width/20);
      fill(255);
-     text("Congraturations", width/3-15, height/4-20);
-     text("You're winner!", width/3+10, height/4+25);
+     text("Start a new game?", width/3-50, height/4-20);
+     //text("You're winner!", width/3+10, height/4+25);
      lives = 0;
      textSize(width/30);
-     text("press space to try again", width/4+55, height/4+55);
+     text("press space to try", width/4+60, height/4+55);
      if(spacePressed){
      balls.add(new Ball(1, 1, 1, 1, 1));
        levelAt = 1;
@@ -356,6 +361,11 @@ void keyPressed(){
   }
   if(keyCode == 80){
      paused = !paused;
+     fill(20, 200);
+   rect(width/8, height/8, 3*width/4, height/4, height/32);
+   textSize(width/14);
+   fill(255);
+   text("GAME PAUSED", width/4, height/4);
   }
   if(keyCode == 32){
     if(!paused){

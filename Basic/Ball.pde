@@ -72,7 +72,8 @@ public class Ball{
               isInPlay = false;
               caught = true;
               ydir = 0-Math.abs(ydir);
-              y = 780; 
+              y = 780;
+              catchTimer--;
            }else{
              if(y >= height){
             xdir = 0;
