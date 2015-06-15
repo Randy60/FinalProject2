@@ -3,7 +3,7 @@ ArrayList<Ball> balls;
 ArrayList<Brick> bricks;
 Levels levs = new Levels();
 boolean paused, levelUp, spacePressed, JPressed;
-int levelAt = 10;
+int levelAt = 11;
 boolean moveLeft, moveRight;
 int barLoc = 400;
 int wideTimer = 0;
@@ -124,7 +124,7 @@ void draw(){
      i--;
      //making powerups
      if(true){//Math.random() >= 0.10){
-         powerups.add(new Powerup(it.xcor+width/20, r.nextInt(9)));
+         powerups.add(new Powerup(it.xcor+width/20, it.ycor, r.nextInt(9)));
      }
    }
   }
@@ -264,6 +264,27 @@ void draw(){
   }
   }
   if(levelUp){
+   if(levelAt > 11){
+     fill(20, 220);
+     rect(width/8, height/8, 3*width/4, height/4, height/32);
+     textSize(width/20);
+     fill(255);
+     text("Congraturations", width/3-15, height/4-20);
+     text("You're winner!", width/3+10, height/4+25);
+     lives = 0;
+     textSize(width/30);
+     text("press space to try again", width/4+55, height/4+55);
+     if(spacePressed){
+     balls.add(new Ball(1, 1, 1, 1, 1));
+       levelAt = 1;
+       lives = 5;
+     levelUp = true;
+     for(int i = 0; i < bricks.size(); i++){
+      bricks.remove(bricks.size()-1); 
+     }
+     bricks = levs.getLevel(levelAt++);
+   }
+  }else{ 
    powerups = new ArrayList<Powerup>();
    for(int i = 0; i < balls.size(); i++){
       balls.get(i).catchable = false;
@@ -284,6 +305,7 @@ void draw(){
     text("press space to continue", width/4-25, height/4); 
    }
   }
+  }
   if(balls.size() == 0){
     shooter.shotsOut = new ArrayList<Float>();
     shooter.laserOn = false;
@@ -295,10 +317,7 @@ void draw(){
    textSize(width/15);
    fill(255);
         powerups = new ArrayList<Powerup>();
-   if(levelAt == 11){
-     text("Congraturations, you're winner!", width/3+12, height/4-20);
-     lives = 0;
-  }else if(lives > 1 && levelAt != 11){
+    if(lives > 1){
    text("YOU LOST", width/3+12, height/4-20);
    }else{
     text("GAME OVER", width/3+4, height/4-20);
